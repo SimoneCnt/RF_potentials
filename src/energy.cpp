@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "residue.h"
 #include "energy.h"
@@ -302,7 +303,7 @@ unsigned int Energy::checksum(unsigned char *md_val) {
       EVP_DigestUpdate(mdctx, poten[i][j], Nbins*sizeof(double));
   EVP_DigestFinal( mdctx, md_val, &md_len );
 //  EVP_DigestFinal_ex( &mdctx, md_val, &md_len );
-  EVP_MD_CTX_cleanup(mdctx);
+  //EVP_MD_CTX_cleanup(mdctx);
 EVP_MD_CTX_destroy(mdctx);
   return( md_len );
 }
@@ -407,12 +408,24 @@ double Energy::SumUp( double DistMin, double DistMax ) {
   if( binmax > Nbins ) binmax = Nbins;
 
   double e = 0.;
+  double eres, enow;
+  printf("binmin = %d    binmax = %d    nres = %d\n", binmin, binmax, Nres);
 
-  for( int d = binmin; d < binmax; d++ ) 
-    for( int i = 0; i < Nres; i++ )
-      if( energy[i][d] != INFINITY )
-	e += energy[i][d];
-      else e += MY_INF;
+  for( int i = 0; i < Nres; i++ ) {
+    printf("RESIDUE %d  ", i+1);
+    eres = 0.0;
+    for( int d = binmin; d < binmax; d++ ) {
+      if( energy[i][d] != INFINITY ) {
+            enow = energy[i][d];
+        } else {
+            enow = MY_INF;
+        }
+        e += enow;
+        eres += enow;
+        printf("%8.3f  ", enow);
+    }
+    printf(" --> %8.3f\n", eres);
+  }
   return e;
 }
 

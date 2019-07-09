@@ -91,7 +91,7 @@ Chain::~Chain(void) {
 
 int Chain::ReadPDB(void) {
   int print = 0;
-  print = 1;
+  print = 0;
   int i, i_residue, i_atom, i_find, k, res_number, i_sum = 0;
   char res_num[PDB_RESIDUE_NUMBER_SIZE+1];
   int atom_size, res_atom_size, current_atom = -1, current_residue = -1, loaded_atoms, current_model;
