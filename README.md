@@ -6,6 +6,8 @@ structures developed by D.Rykunov, A.Fiser.
 
 [Original software and potential files](http://www.fiserlab.org/potentials/)
 
+Potentials and software can be used under GPL license, given the relevant papers are cited. They are free of charge for non-profit research. Commercial users should contact Dr. Andras Fiser for negotiations.
+
 If you use this code please cite:
 
 D.Rykunov, A.Fiser. - Effects of amino acid composition, finite size of
